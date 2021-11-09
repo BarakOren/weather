@@ -1,0 +1,34 @@
+import * as type from "./favorites.types";
+
+function removeItem(saved, selectedCity){
+    
+    const itemToRemove = saved.find(
+    item => item.name === selectedCity.name);
+    console.log(itemToRemove)
+    const newArray = saved.filter((item) => item !== itemToRemove);
+
+    return newArray;
+}
+
+const initial_state = {
+    saved: [{name: "Tel Aviv", key: 215854}]
+};
+
+// {name: "New York", key: 349727}, {name: "Tokyo", key: 226396}, 
+
+export default function favoritesReducer(state = initial_state, action){
+    switch(action.type){
+        case type.ADD_TO_FAVORITES:
+            return {
+                ...state,
+                saved: [...state.saved, action.payload]
+            }
+        case type.REMOVE_FROM_FAVORITES:
+            return {
+                ...state,
+                saved: removeItem(state.saved, action.payload)
+            }
+        default: 
+            return state;
+    }
+}

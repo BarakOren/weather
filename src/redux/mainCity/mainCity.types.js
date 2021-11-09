@@ -1,0 +1,4 @@
+export const GET_CITY_REQUESTED = "GET_CITY_REQUESTED";
+export const GET_CITY_SUCCESS = "GET_CITY_SUCCESS";
+export const GET_CITY_FAILED = "GET_CITY_FAILED";
+export const SET_SEARCH = "SET_SEARCH";

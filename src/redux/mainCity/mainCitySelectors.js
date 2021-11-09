@@ -1,0 +1,1 @@
+export const searchForSelector = (state) => state.mainCity.searchFor
