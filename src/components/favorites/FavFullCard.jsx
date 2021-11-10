@@ -2,8 +2,9 @@ import React, { useEffect, useState, useCallback } from "react";
 import FavFiveDayCard from "./FavfiveDaysCard.component";
 import FavMainCard from "./FavMainCard";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
 import Spinner from "../spinner";
+import { removeFromFavorites } from "../../redux/favorites/favorites.actions";
+import { useDispatch } from "react-redux";
 
 const WeatherCards = styled.div`
     position: relative;
@@ -95,11 +96,14 @@ const FavFullCard = ({city}) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
+    const currentWeatherCall = `http://dataservice.accuweather.com/currentconditions/v1/${city.key}?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&language=en-us&details=true HTTP/1.1`
+    const fiveDaysCall = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.key}?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&language=en-us&details=false&metric=true HTTP/1.1`
+
     const getData = useCallback(async () => {
         try{
-        const currentWeatherRes = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${city.key}?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&language=en-us&details=true HTTP/1.1`)
+        const currentWeatherRes = await fetch(currentWeatherCall)
         const currentWeatherJson = await currentWeatherRes.json();
-        const fiveDaysRes = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.key}?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&language=en-us&details=false&metric=true HTTP/1.1`)
+        const fiveDaysRes = await fetch(fiveDaysCall)
         const fiveDaysJson = await fiveDaysRes.json();
         setData({currentWeather: currentWeatherJson, fiveDays: fiveDaysJson})
         setLoading(false)
@@ -113,17 +117,19 @@ const FavFullCard = ({city}) => {
         getData()
     }, [])
 
+    const dispatch = useDispatch()
+
     return(
             <WeatherCards>
                 {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
                 {data &&
                 <>
-                <X>X</X>
+                <X onClick={() => dispatch(removeFromFavorites(city.name))}>X</X>
                 <FavMainCard city={city} propsData={data.currentWeather}/>
                 <FiveDaysContainer>
                 {
                     data.fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
-                        return <FavFiveDayCard index={index} key={data.id} data={data}/>
+                        return <FavFiveDayCard index={index} key={index} data={data}/>
                         })
                 } 
                 </FiveDaysContainer>

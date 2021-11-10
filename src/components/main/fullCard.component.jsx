@@ -82,9 +82,9 @@ const FullCard = ({favorite}) => {
     return(
             <WeatherCards>
                 {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
-                {/* {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>} */}
+                {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
                 
-                {fiveDays && <>
+                {fiveDays && !loading && <>
                 <MainCard />
                 <FiveDaysContainer>
                     {

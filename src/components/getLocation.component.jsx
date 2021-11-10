@@ -25,9 +25,12 @@ const Container = styled.div`
 const GetLocation = () => {
     const dispatch = useDispatch();
 
+    
+
     async function setLocation(lat, lon){
+        const locationCall = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&q=${lat}%2C${lon}&language=en-us&details=false&toplevel=false`
         try{
-            const location = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&q=${lat}%2C${lon}&language=en-us&details=false&toplevel=false`)
+            const location = await fetch(locationCall)
             const locationJson = await location.json()
             const name = locationJson.EnglishName
             const key = locationJson.Key

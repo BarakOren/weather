@@ -1,10 +1,10 @@
-import React, {useContext} from "react";
-import styled, {ThemeContext} from "styled-components";
+import React from "react";
+import styled from "styled-components";
 import {Link} from "react-router-dom";
 import { useLocation } from "react-router";
 import ThemeToggler from "./themeToggler.component";
 import DegreeToggler from "./degreeToggler.component";
-import { useDispatch } from "react-redux";
+
 
 const HeaderContainer = styled.div`
     background: ${p => p.theme.header.headerBackground};
@@ -83,9 +83,8 @@ const StyledLink = styled(Link)`
 
 const Header = () => {
 
-    const {id, setTheme} = useContext(ThemeContext);
+
     const {pathname} = useLocation();
-    const dispatch = useDispatch()
 
     return(
         <HeaderContainer>

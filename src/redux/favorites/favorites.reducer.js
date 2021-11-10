@@ -3,11 +3,9 @@ import * as type from "./favorites.types";
 function removeItem(saved, selectedCity){
     
     const itemToRemove = saved.find(
-    item => item.name === selectedCity.name);
-    console.log(itemToRemove)
-    const newArray = saved.filter((item) => item !== itemToRemove);
-
-    return newArray;
+    item => item.name === selectedCity);
+    const newList = saved.filter((item) => item !== itemToRemove);
+    return newList;
 }
 
 const initial_state = {
