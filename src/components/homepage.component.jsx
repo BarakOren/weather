@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import Search from "./search.component";
 import FullCard from "./main/fullCard.component";
 import GetLocation from "./getLocation.component";
 import {setMainCity} from "../redux/mainCity/mainCity.actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const MainContaier = styled.div`
     width: 100vw;

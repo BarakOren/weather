@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import Header from "./components/header.component";
 import Homepage from './components/homepage.component';
 import Favorites from "./components/favoritesPage";

@@ -4,7 +4,7 @@ export const setMainCity = () => ({
     type: type.GET_CITY_REQUESTED,
   });
 
-export const SearchFor = city => ({
+export const searchFor = city => ({
   type: type.SET_SEARCH,
   payload: city
 });

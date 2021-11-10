@@ -96,8 +96,8 @@ const FavFullCard = ({city}) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
-    const currentWeatherCall = `http://dataservice.accuweather.com/currentconditions/v1/${city.key}?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&language=en-us&details=true HTTP/1.1`
-    const fiveDaysCall = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.key}?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&language=en-us&details=false&metric=true HTTP/1.1`
+    const currentWeatherCall = `http://dataservice.accuweather.com/currentconditions/v1/${city.key}?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&language=en-us&details=true HTTP/1.1`
+    const fiveDaysCall = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.key}?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&language=en-us&details=false&metric=true HTTP/1.1`
 
     const getData = useCallback(async () => {
         try{
@@ -109,20 +109,21 @@ const FavFullCard = ({city}) => {
         setLoading(false)
         } catch (error) {
             console.log(error.message)
+            setLoading(false)
             setError("Sorry, He Have A Problem.")
         }
-    }, [])
+    }, [currentWeatherCall, fiveDaysCall])
 
     useEffect(() => {
         getData()
-    }, [])
+    }, [getData])
 
     const dispatch = useDispatch()
 
     return(
             <WeatherCards>
                 {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
-                {data &&
+                {data && !loading &&
                 <>
                 <X onClick={() => dispatch(removeFromFavorites(city.name))}>X</X>
                 <FavMainCard city={city} propsData={data.currentWeather}/>

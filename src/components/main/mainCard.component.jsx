@@ -87,6 +87,8 @@ const MainCard = () => {
     "July", "August", "September", "October", "November", "December"
     ][dateFunc.getMonth()].slice(0,3)
 
+    const favoriteList = useSelector(state => state.favorites.saved)
+
     return(
         <MainContainer>
             <Header>
@@ -94,7 +96,10 @@ const MainCard = () => {
                 <HeaderText>{date} {month}</HeaderText>
             </Header>
             <DataContaier>
-            <AddToFav />
+            
+            
+            <AddToFav keyNum={mainCity.Key} name={mainCity.EnglishName} />
+
             <City>{mainCity.EnglishName}</City>
             <Degrees>
             {

@@ -1,6 +1,7 @@
 import React, {useRef, useEffect, useState, useCallback} from "react";
 import styled from "styled-components";
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {searchFor, setMainCity} from "../redux/mainCity/mainCity.actions";
 
 const Container = styled.div`
     width: 100%;
@@ -136,6 +137,12 @@ const Search = () => {
       },[text, getResults])
 
       const favoriteList = useSelector(state => state.favorites.saved);
+      const dispatch = useDispatch()
+
+      function getWeather(object){
+        dispatch(searchFor(object))
+        dispatch(setMainCity())
+      }
 
     return(
         <Container ref={wrapperRef}>
@@ -149,13 +156,15 @@ const Search = () => {
           <ResultContainer>
           {
           suggestions.slice(0, 4).map((city, index) => {
-
+            const key = city.key
+            const name = city.LocalizedName
+            const obj = {name: name, key: key}
             return <Result key={index}>
             <p
             style={{cursor: "pointer", margin: "0"}}
             >{city.LocalizedName}</p>
             <ButtonsContaier>
-              <Button>Get Weather</Button>
+              <Button onClick={() => getWeather(obj)}>Get Weather</Button>
               {
               favoriteList.some(obj => obj.name === city.LocalizedName) 
               ?

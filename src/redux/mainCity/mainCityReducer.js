@@ -16,6 +16,7 @@ export default function mainCityReducer(state = initial_state, action){
         return {
           ...state,
           loading: true,
+          error: null
         }
         case type.GET_CITY_SUCCESS:
             return {
@@ -23,7 +24,8 @@ export default function mainCityReducer(state = initial_state, action){
               mainCity: action.mainCity,
               currentWeather: action.currentWeather,
               fiveDays: action.fiveDays,
-              loading: false
+              loading: false,
+              error: null
             }
         case type.GET_CITY_FAILED:
             return {

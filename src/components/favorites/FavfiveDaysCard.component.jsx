@@ -99,14 +99,12 @@ const FavFiveDayCard = ({data, index}) => {
     const c = (averageTemp - 32) * 5/9
     const cString = c.toString().slice(0, 2)
 
-
     const dateFunc = new Date(data.Date);
-    const date = dateFunc.getDate()
     const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
 
     return(
-        <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 == 0 ? "evenBackground" : ""}`}>
-            <Header className={`${index === 3 ? "last" : ""} ${index % 2 == 0 ? "even" : ""}`}>
+        <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "evenBackground" : ""}`}>
+            <Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
                 <HeaderText>{dayName}</HeaderText>
             </Header>
             <DataContaier className={`${data.id % 2 !== 0 ? "even" : ""}`}>

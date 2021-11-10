@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import {setMainCity, SearchFor} from "../redux/mainCity/mainCity.actions";
+import {setMainCity, searchFor} from "../redux/mainCity/mainCity.actions";
 
 const Container = styled.div`
         font-size: 1.5vw;
@@ -34,8 +34,8 @@ const GetLocation = () => {
             const locationJson = await location.json()
             const name = locationJson.EnglishName
             const key = locationJson.Key
-            const obj = {name, key}
-            dispatch(SearchFor(obj))
+            const obj = {name: name, key: key}
+            dispatch(searchFor(obj))
             dispatch(setMainCity())
         } catch (error) {
             console.log(error)

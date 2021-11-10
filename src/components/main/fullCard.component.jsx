@@ -79,12 +79,15 @@ const FullCard = ({favorite}) => {
     const fiveDays = useSelector(state => state.mainCity.fiveDays)
     const mainCityState = useSelector(state => state.mainCity)
 
+
+    
     return(
             <WeatherCards>
                 {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
                 {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
                 
-                {fiveDays && !loading && <>
+                {fiveDays && !loading && !error &&
+                <>
                 <MainCard />
                 <FiveDaysContainer>
                     {

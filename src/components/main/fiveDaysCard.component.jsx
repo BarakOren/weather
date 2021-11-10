@@ -103,8 +103,8 @@ const FiveDayCard = ({data, index}) => {
     const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
 
     return(
-        <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 == 0 ? "evenBackground" : ""}`}>
-        <Header className={`${index === 3 ? "last" : ""} ${index % 2 == 0 ? "even" : ""}`}>
+        <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "evenBackground" : ""}`}>
+        <Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
             <HeaderText>{dayName}</HeaderText>
         </Header>
         <DataContaier className={`${index % 2 !== 0 ? "even" : ""}`}>
