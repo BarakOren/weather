@@ -39,7 +39,6 @@ const Container = styled.div`
         font-size: 2.5vw;
         top: 3vw;
         right: 3vw;
-
     }
 
     &.inList{

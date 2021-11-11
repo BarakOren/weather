@@ -45,15 +45,15 @@ const MenuContainer = styled.div`
 const ItemContainer = styled.div`
         margin-top: 12vh;
         width: 100%;
+        height: 70%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-evenly;
         align-items: center;
     `
 
 const MenuItem = styled(Link)`
         color: #8e8d8f;
-        margin: 5% 0;
         padding: 3% 7%;
         border: solid 1px;
         border-color: #8e8d8f;

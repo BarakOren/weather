@@ -19,7 +19,12 @@ const Container = styled.div`
             color: ${p => p.theme.toggler.hover};
             cursor: pointer;
         }
-    
+
+        @media only screen and (max-width: 800px) {
+            width: 20%;
+            font-size: 5vw;
+            padding: 1vh 0;
+        }
 `
 
 const DegreeToggler = () => {

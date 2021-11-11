@@ -15,12 +15,24 @@ const WeatherCards = styled.div`
     box-shadow: 7px 7px 20px ${p => p.theme.shadow};
     border-radius: 25px;
     margin: 5vh 0;
+    &.margin{
+        margin: 5vh 0;
+    }
+    @media only screen and (max-width: 800px) {
+        flex-direction: column;
+        height: auto;
+        margin: 3vh 0;
+    }
 `
 
 const FiveDaysContainer = styled.div`
     width: 70%;
     display: flex;
     flex-direction: row;
+    @media only screen and (max-width: 800px) {
+        width: 100%;
+        flex-direction: column;
+    }
 `
 
 const X = styled.p`
@@ -33,6 +45,10 @@ const X = styled.p`
     right: -3vw;
     cursor: pointer;
     box-shadow: 3px 3px 5px ${p => p.theme.shadow};
+    @media only screen and (max-width: 800px) {
+        top: 20px;
+        right: -15px;
+    }
 `
 
 const SpinnerContainer = styled.div`
@@ -114,31 +130,45 @@ const FavFullCard = ({city}) => {
         }
     }, [currentWeatherCall, fiveDaysCall])
 
-    useEffect(() => {
-        getData()
-    }, [getData])
+    // useEffect(() => {
+    //     getData()
+    // }, [getData])
 
     const dispatch = useDispatch()
 
     return(
-            <WeatherCards>
-                {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
-                {data && !loading &&
-                <>
-                <X onClick={() => dispatch(removeFromFavorites(city.name))}>X</X>
-                <FavMainCard city={city} propsData={data.currentWeather}/>
-                <FiveDaysContainer>
-                {
-                    data.fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
-                        return <FavFiveDayCard index={index} key={index} data={data}/>
-                        })
-                } 
-                </FiveDaysContainer>
-                </>
-                }
-                {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
+        <WeatherCards>
+        <X>X</X>
+        <FavMainCard city={city} />
+        <FiveDaysContainer>
+        {
+            test.slice(0,5).map((data, index) => {
+                return <FavFiveDayCard index={index} key={index} data={data}/>
+                })
+        } 
+        </FiveDaysContainer>
+        
+        
 
-            </WeatherCards>
+    </WeatherCards>
+            // <WeatherCards>
+            //     {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
+            //     {data && !loading &&
+            //     <>
+            //     <X onClick={() => dispatch(removeFromFavorites(city.name))}>X</X>
+            //     <FavMainCard city={city} propsData={data.currentWeather}/>
+            //     <FiveDaysContainer>
+            //     {
+            //         data.fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
+            //             return <FavFiveDayCard index={index} key={index} data={data}/>
+            //             })
+            //     } 
+            //     </FiveDaysContainer>
+            //     </>
+            //     }
+            //     {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
+
+            // </WeatherCards>
     )
 
 }

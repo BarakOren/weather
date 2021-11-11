@@ -72,7 +72,7 @@ const Favorites = () => {
         <Container>
             <ContectContaier>
                 {
-                    favorites.map((city) => { 
+                    test.map((city) => { 
                         return <FavFullCard city={city} key={city.key} />
                     })
                 }   
