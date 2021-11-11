@@ -10,6 +10,11 @@ const MainContainer = styled.div`
     background-color: ${p => p.theme.mainCard.background1};
     border-radius: 10px 0 0 10px;
     transition: 0.2s all;
+    @media only screen and (max-width: 800px) {
+        width: 100%;
+        height: 200px;
+        border-radius: 10px 10px 0px 0px;
+    }
 `
 
 const Header = styled.div`
@@ -21,10 +26,23 @@ const Header = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media only screen and (max-width: 800px) {
+        border-radius: 10px 10px 0px 0px;
+        
+    }
+
 `
 const HeaderText = styled.div`
     font-size: 1vw;
     color: ${p => p.theme.mainCard.textOne};
+    @media only screen and (max-width: 1000px) {
+        font-size: 1.2vw;
+    }
+    @media only screen and (max-width: 800px) {
+        font-size: 2.7vw; 
+        padding: 2% 0;   
+    }
 `
 
 const DataContaier = styled.div`
@@ -33,9 +51,12 @@ const DataContaier = styled.div`
     height: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: flex-start;
     position: relative;
+    @media only screen and (max-width: 800px) {
+
+    }
 `
 
 const City = styled.div`
@@ -46,6 +67,14 @@ const City = styled.div`
     text-align: left;
     font-size: 1.4vw;
     font-weight: 500;
+    @media only screen and (max-width: 1000px) {
+
+        font-size: 1.6vw;
+    }
+    @media only screen and (max-width: 800px) {
+        height: 20%;
+        font-size: 5vw;
+    }
 `
 const Degrees = styled.div`
     color: ${p => p.theme.mainCard.degreeColor};
@@ -59,9 +88,17 @@ const Degrees = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    @media only screen and (max-width: 800px) {
+        height: 20%;
+        font-size: 6vw;
+    }
+
 `
 const Image = styled.img`
  width: 100%;
+    @media only screen and (max-width: 800px) {
+    width: 50%;
+    }
 `
 
 const Status = styled.div`
@@ -72,6 +109,14 @@ const Status = styled.div`
     text-align: left;
     font-size: 1.2vw;
     font-weight: 400;
+    @media only screen and (max-width: 1000px) {
+        height: 20%;
+        font-size: 1.4vw;
+    }
+    @media only screen and (max-width: 800px) {
+        height: 20%;
+        font-size: 4vw;
+    }
 `
 
 const MainCard = () => {
@@ -80,36 +125,53 @@ const MainCard = () => {
     const mainCity = useSelector(state => state.mainCity.mainCity)
     const currentWeather = useSelector(state => state.mainCity.currentWeather)
     
-    const dateFunc = new Date(currentWeather.LocalObservationDateTime);
-    const date = dateFunc.getDate()
-    const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
-    const month = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-    ][dateFunc.getMonth()].slice(0,3)
+    // const dateFunc = new Date(currentWeather.LocalObservationDateTime);
+    // const date = dateFunc.getDate()
+    // const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
+    // const month = ["January", "February", "March", "April", "May", "June",
+    // "July", "August", "September", "October", "November", "December"
+    // ][dateFunc.getMonth()].slice(0,3)
 
     const favoriteList = useSelector(state => state.favorites.saved)
 
     return(
         <MainContainer>
             <Header>
-                <HeaderText>{dayName}</HeaderText>
-                <HeaderText>{date} {month}</HeaderText>
+                <HeaderText>Mon</HeaderText>
+                <HeaderText>{"25"} {"Nov"}</HeaderText>
             </Header>
             <DataContaier>
-            
-            
-            <AddToFav keyNum={mainCity.Key} name={mainCity.EnglishName} />
-
-            <City>{mainCity.EnglishName}</City>
+            <AddToFav keyNum={"123"} name={"bla"} />
+            <City>{"Barcelonas"}</City>
             <Degrees>
             {
-                currentDegree ? `${currentWeather.Temperature.Metric.Value}°C` : `${currentWeather.Temperature.Imperial.Value}°F`
+                currentDegree ? `${"42"}°C` : `${"34"}°F`
             }
-            <Image src={images.find(image => image.id === currentWeather.WeatherIcon).url} />
+            <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
             </Degrees>
-            <Status>{currentWeather.WeatherText}</Status>
+            <Status>{"Clody"}</Status>
             </DataContaier>
         </MainContainer>
+        // <MainContainer>
+        //     <Header>
+        //         <HeaderText>{dayName}</HeaderText>
+        //         <HeaderText>{date} {month}</HeaderText>
+        //     </Header>
+        //     <DataContaier>
+            
+            
+        //     <AddToFav keyNum={mainCity.Key} name={mainCity.EnglishName} />
+
+        //     <City>{mainCity.EnglishName}</City>
+        //     <Degrees>
+        //     {
+        //         currentDegree ? `${currentWeather.Temperature.Metric.Value}°C` : `${currentWeather.Temperature.Imperial.Value}°F`
+        //     }
+        //     <Image src={images.find(image => image.id === currentWeather.WeatherIcon).url} />
+        //     </Degrees>
+        //     <Status>{currentWeather.WeatherText}</Status>
+        //     </DataContaier>
+        // </MainContainer>
     )
 
 }

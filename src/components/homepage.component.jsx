@@ -12,6 +12,12 @@ const MainContaier = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+
+    @media only screen and (max-width: 800px) {
+        width: 100vw;
+        height: auto;
+        padding: 10vh 0;
+    }
 `
 
 const ContectContaier = styled.div`
@@ -27,9 +33,9 @@ const Homepage = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(setMainCity())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(setMainCity())
+    // }, [dispatch])
 
 
     return(

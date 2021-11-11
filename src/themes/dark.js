@@ -41,7 +41,8 @@ const theme = {
     scrollerHover: "rgb(68, 68, 68)",
     spinnerColor: "white",
     xColor: grey,
-    xBackground: darkOne
+    xBackground: darkOne,
+    menuBackground: "linear-gradient(to bottom, #252837, #1f212d, #191b23, #131419, #0a0b0e)"
 }
 
 export default theme;

@@ -2,6 +2,7 @@ import React, {useRef, useEffect, useState, useCallback} from "react";
 import styled from "styled-components";
 import {useDispatch, useSelector} from "react-redux";
 import {searchFor, setMainCity} from "../redux/mainCity/mainCity.actions";
+import { addToFavorites } from "../redux/favorites/favorites.actions";
 
 const Container = styled.div`
     width: 100%;
@@ -25,6 +26,9 @@ const Input = styled.input`
     color: ${p => p.theme.text};
     box-shadow: 3px 3px 10px ${p => p.theme.shadow};
     transition: 0.2s all;
+    @media only screen and (max-width: 800px) {
+    font-size: 5vw;
+    }
 `
 const ResultContainer = styled.div`
     z-index: 5;
@@ -37,6 +41,9 @@ const ResultContainer = styled.div`
     border-radius: 25px;
     text-align: left;
     transition: 0.2s all;
+    @media only screen and (max-width: 800px) {
+    top: 70px;
+    }
 `
 
 const Result = styled.div`
@@ -55,6 +62,11 @@ const ButtonsContaier = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @media only screen and (max-width: 800px) {
+    align-items: center;
+    flex-direction: column;
+    width: 40%;
+  }
 `
 
 const Button = styled.button`
@@ -70,10 +82,19 @@ const Button = styled.button`
     opacity: 0.5;
     cursor: default;
   }
+  @media only screen and (max-width: 800px) {
+    padding: 5px 2vw;
+    font-size: 3vw;
+    margin: 6px 0;
+  }
   
-
 `
-
+const P = styled.p`
+  font-size: 2vw;
+  @media only screen and (max-width: 800px) {
+    font-size: 5vw;
+  }
+`
 
 const Search = () => {
 
@@ -119,29 +140,35 @@ const Search = () => {
         // dispatch(closeSearch())
       }
 
-      const getResults = useCallback( async () => {
-        if(text.length > 0){
-        try{
-          const first = await fetch(`http://dataservice.accuweather.com//locations/v1/cities/autocomplete?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${text}&language=en-us HTTP/1.1`)
-          const fetchJson = await first.json()
-          setApiD(fetchJson)
-        } catch(error) {
-          console.log(error.message)
-        }
-      }
-      }, [text])
+      // const getResults = useCallback( async () => {
+      //   if(text.length > 0){
+      //   try{
+      //     const first = await fetch(`http://dataservice.accuweather.com//locations/v1/cities/autocomplete?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${text}&language=en-us HTTP/1.1`)
+      //     const fetchJson = await first.json()
+      //     setApiD(fetchJson)
+      //   } catch(error) {
+      //     console.log(error.message)
+      //   }
+      // }
+      // }, [text])
 
    
-      useEffect(() => {
-        getResults()
-      },[text, getResults])
+      // useEffect(() => {
+      //   getResults()
+      // },[text, getResults])
 
       const favoriteList = useSelector(state => state.favorites.saved);
       const dispatch = useDispatch()
 
       function getWeather(object){
+        setToggler(false)
         dispatch(searchFor(object))
         dispatch(setMainCity())
+      }
+
+      function addToFav(object){
+        setToggler(false);
+        dispatch(addToFavorites(object))
       }
 
     return(
@@ -155,14 +182,17 @@ const Search = () => {
           toggler ? 
           <ResultContainer>
           {
-          suggestions.slice(0, 4).map((city, index) => {
+          test.slice(0, 4).map((city, index) => {
             const key = city.key
             const name = city.LocalizedName
             const obj = {name: name, key: key}
             return <Result key={index}>
-            <p
+            {/* <P
             style={{cursor: "pointer", margin: "0"}}
-            >{city.LocalizedName}</p>
+            >{city.LocalizedName}</P> */}
+             <P
+            style={{cursor: "pointer", margin: "0"}}
+            >{city}</P>
             <ButtonsContaier>
               <Button onClick={() => getWeather(obj)}>Get Weather</Button>
               {
@@ -170,7 +200,7 @@ const Search = () => {
               ?
               <Button className="alreadyIn">Add To Favorites</Button> 
               :
-              <Button>Add To Favorites</Button>         
+              <Button onClick={() => addToFav(obj)} >Add To Favorites</Button>         
               }
             </ButtonsContaier>
 

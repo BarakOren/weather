@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Spinner from "../spinner";
 
-
 const WeatherCards = styled.div`
     position: relative;
     width: 100%;
@@ -17,12 +16,21 @@ const WeatherCards = styled.div`
     &.margin{
         margin: 5vh 0;
     }
+    @media only screen and (max-width: 800px) {
+        flex-direction: column;
+        height: auto;
+        margin: 3vh 0;
+    }
 `
 
 const FiveDaysContainer = styled.div`
     width: 70%;
     display: flex;
     flex-direction: row;
+    @media only screen and (max-width: 800px) {
+        width: 100%;
+        flex-direction: column;
+    }
 `
 
 const SpinnerContainer = styled.div`
@@ -71,6 +79,13 @@ const FullCard = ({favorite}) => {
             name: "Tel Aviv",
             degree: "23*C",
             status: "parlty cloudy"
+        },        
+        {
+            id: "5",
+            date: "Wensdy",
+            name: "Tel Aviv",
+            degree: "23*C",
+            status: "parlty cloudy"
         }
     ]
     
@@ -83,21 +98,26 @@ const FullCard = ({favorite}) => {
     
     return(
             <WeatherCards>
-                {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
+                {/* {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
                 {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
                 
                 {fiveDays && !loading && !error &&
-                <>
+                <> */}
                 <MainCard />
                 <FiveDaysContainer>
                     {
-                    fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
+                    test.slice(1,5).map((data, index) => {
                         return <FiveDayCard index={index} key={index} data={data}/>
                         })
                     } 
+                    {/* {
+                    fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
+                        return <FiveDayCard index={index} key={index} data={data}/>
+                        })
+                    }  */}
                 </FiveDaysContainer>
-                </>
-                }
+                {/* </>
+                } */}
             </WeatherCards>
     )
 

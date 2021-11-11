@@ -34,6 +34,20 @@ const Container = styled.div`
         cursor: default;
     }
 
+    @media only screen and (max-width: 800px) {
+        &.notInList{
+        font-size: 2.5vw;
+        top: 3vw;
+        right: 3vw;
+
+    }
+
+    &.inList{
+        font-size: 2.5vw;
+        top: 3vw;
+        right: 3vw;
+    }
+}
 
 `
 

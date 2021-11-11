@@ -6,6 +6,7 @@ import DarkTheme from "./themes/dark";
 import LightTheme from "./themes/light";
 import {ThemeProvider, createGlobalStyle} from "styled-components";
 import { Route , Routes } from 'react-router-dom';
+import Menu from "./components/menu.component";
 
 const GlobalStyle = createGlobalStyle`
   body{
@@ -43,6 +44,7 @@ function App() {
     }}}>
       <GlobalStyle />
       <Header />
+      <Menu />
         <Routes>
           <Route exact path="/" element={<Homepage />}/> 
           <Route exact path="/favorites" element={<Favorites />}/>

@@ -20,6 +20,10 @@ const Container = styled.div`
             cursor: pointer;
         }
     
+        @media only screen and (max-width: 800px) {
+            margin-top: 2vh;
+            font-size: 5vw;
+        }
 `
 
 const GetLocation = () => {
@@ -28,7 +32,7 @@ const GetLocation = () => {
     
 
     async function setLocation(lat, lon){
-        const locationCall = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=atTAzBmYW7kGsaXC8OkxSVDqtt1ktqbC&q=${lat}%2C${lon}&language=en-us&details=false&toplevel=false`
+        const locationCall = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${lat}%2C${lon}&language=en-us&details=false&toplevel=false`
         try{
             const location = await fetch(locationCall)
             const locationJson = await location.json()

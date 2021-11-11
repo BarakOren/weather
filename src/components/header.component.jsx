@@ -17,6 +17,10 @@ const HeaderContainer = styled.div`
     color: white;
     box-shadow: 1px 1px 10px #000000;
     transition: 0.2s all;
+    
+    @media only screen and (max-width: 800px) {
+        display: none;
+    }
 `
 
 const Content = styled.div`
@@ -26,8 +30,6 @@ const Content = styled.div`
     align-items: center;
     width: 70%;
 `
-    
-
 
 const Name = styled.p`
     font-size: 2vw;
