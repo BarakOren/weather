@@ -8,7 +8,7 @@ import degreesReducer from "./degrees/degreesReducer";
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: []
+    whitelist: ["mainCity", "favorites"]
 }
 const rootReducer = combineReducers({
         degrees: degreesReducer,

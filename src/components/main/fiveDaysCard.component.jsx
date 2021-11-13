@@ -37,7 +37,7 @@ const Header = styled.div`
     transition: 0.2s all;
 
     &.even{
-        background-color: ${p => p.theme.mainCard.headerBackground2};    
+        background-color: ${p => p.theme.mainCard.headerBackground2};   
     }
 
     &.last{
@@ -45,7 +45,7 @@ const Header = styled.div`
     }
 
     @media only screen and (max-width: 800px) {
-
+        background-color: ${p => p.theme.mainCard.headerBackgroundMobile};
         &.last{
         border-radius: 0 0px 0px 0;
         }
@@ -152,47 +152,49 @@ const Status = styled.div`
 
 const FiveDayCard = ({data, index}) => {
     const currentDegree = useSelector(state => state.degrees.degreeType)
-    // const min = data.Temperature.Minimum.Value
-    // const max = data.Temperature.Maximum.Value
-    // const averageTemp = (min + max) / 2 
+    const min = data.Temperature.Minimum.Value
+    const max = data.Temperature.Maximum.Value
+    const averageTemp = (min + max) / 2 
     
-    // const c = (averageTemp - 32) * 5/9
-    // const cString = c.toString().slice(0, 2)
+    const c = (averageTemp - 32) * 5/9
+    const cString = Math.trunc(c.toString())
 
-    // const dateFunc = new Date(data.Date);
-    // const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
+    const dateFunc = new Date(data.Date);
+    const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
 
     return(
         <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "evenBackground" : ""}`}>
-        <Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
-            <HeaderText>Mon</HeaderText>
-        </Header>
-        <DataContaier className={`${index % 2 !== 0 ? "even" : ""}`}>
-            <ImageContainer>
-                <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
-            </ImageContainer>
-            <DegreesAndStatus>
-                <Degrees>{currentDegree ? `${"25"}°C` : `${"25"}°F`}</Degrees>
-                <Status>{"cloudy cloud"}</Status>
-            </DegreesAndStatus>
-        </DataContaier>
-    </MainContainer>
+            <Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
+                <HeaderText>{dayName}</HeaderText>
+            </Header>
+            <DataContaier className={`${index % 2 !== 0 ? "even" : ""}`}>
+                <ImageContainer>
+                    <Image src={images.find(image => image.id === data.Day.Icon).url} />
+                </ImageContainer>
+                <DegreesAndStatus>
+                    <Degrees>{currentDegree ? `${cString}°C` : `${averageTemp}°F`}</Degrees>
+                    <Status>{data.Day.IconPhrase}</Status>
+                </DegreesAndStatus>
+            </DataContaier>
+        </MainContainer> 
+
     )
 }
 
 export default FiveDayCard;
 
-{/* <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "evenBackground" : ""}`}>
-<Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
-    <HeaderText>{dayName}</HeaderText>
-</Header>
-<DataContaier className={`${index % 2 !== 0 ? "even" : ""}`}>
-    <ImageContainer>
-        <Image src={images.find(image => image.id === data.Day.Icon).url} />
-    </ImageContainer>
-    <DegreesAndStatus>
-        <Degrees>{currentDegree ? `${cString}°C` : `${averageTemp}°F`}</Degrees>
-        <Status>{data.Day.IconPhrase}</Status>
-    </DegreesAndStatus>
-</DataContaier>
-</MainContainer> */}
+// TEST MODE     
+//     <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "evenBackground" : ""}`}>
+    //     <Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
+    //         <HeaderText>Mon</HeaderText>
+    //     </Header>
+    //     <DataContaier className={`${index % 2 !== 0 ? "even" : ""}`}>
+    //         <ImageContainer>
+    //             <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
+    //         </ImageContainer>
+    //         <DegreesAndStatus>
+    //             <Degrees>{currentDegree ? `${"25"}°C` : `${"25"}°F`}</Degrees>
+    //             <Status>{"cloudy cloud"}</Status>
+    //         </DegreesAndStatus>
+    //     </DataContaier>
+    // </MainContainer>

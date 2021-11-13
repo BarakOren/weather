@@ -44,7 +44,7 @@ const Header = styled.div`
     }
 
     @media only screen and (max-width: 800px) {
-
+        background-color: ${p => p.theme.mainCard.headerBackgroundMobile};
         &.last{
         border-radius: 0 0px 0px 0;
         }
@@ -151,52 +151,40 @@ const Status = styled.div`
 
 const FavFiveDayCard = ({data, index}) => {
     const currentDegree = useSelector(state => state.degrees.degreeType)
-    // const min = data.Temperature.Minimum.Value
-    // const max = data.Temperature.Maximum.Value
-    // const averageTemp = (min + max) / 2 
+    const min = data.Temperature.Minimum.Value
+    const max = data.Temperature.Maximum.Value
+    const averageTemp = (min + max) / 2 
     
-    // const c = (averageTemp - 32) * 5/9
-    // const cString = c.toString().slice(0, 2)
+    const c = (averageTemp - 32) * 5/9
+    const cString = Math.trunc(c.toString())
 
-    // const dateFunc = new Date(data.Date);
-    // const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
-
+    const dateFunc = new Date(data.Date);
+    const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
+    
     return(
-        <MainContainer>
-        <Header>
-            <HeaderText>Monday</HeaderText>
-        </Header>
-        <DataContaier>
-            <ImageContainer>
-            <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
-            </ImageContainer>
-            <DegreesAndStatus>
-                <Degrees>{currentDegree ? "35°C" : "35°F"}</Degrees>
-                <Status>Very Weather</Status>
-            </DegreesAndStatus>
-        </DataContaier>
-    </MainContainer>
-        // <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "evenBackground" : ""}`}>
-        //     <Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
-        //         <HeaderText>{dayName}</HeaderText>
-        //     </Header>
-        //     <DataContaier className={`${data.id % 2 !== 0 ? "even" : ""}`}>
-        //         <ImageContainer>
-        //             <Image src={images.find(image => image.id === data.Day.Icon).url} />
-        //         </ImageContainer>
-        //         <DegreesAndStatus>
-        //             <Degrees>{currentDegree ? `${cString}°C` : `${averageTemp}°F`}</Degrees>
-        //             <Status>{data.Day.IconPhrase}</Status>
-        //         </DegreesAndStatus>
-        //     </DataContaier>
-        // </MainContainer>
+        <MainContainer className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "evenBackground" : ""}`}>
+            <Header className={`${index === 3 ? "last" : ""} ${index % 2 === 0 ? "even" : ""}`}>
+                <HeaderText>{dayName}</HeaderText>
+            </Header>
+            <DataContaier className={`${data.id % 2 !== 0 ? "even" : ""}`}>
+                <ImageContainer>
+                    <Image src={images.find(image => image.id === data.Day.Icon).url} />
+                </ImageContainer>
+                <DegreesAndStatus>
+                    <Degrees>{currentDegree ? `${cString}°C` : `${Math.trunc(averageTemp)}°F`}</Degrees>
+                    <Status>{data.Day.IconPhrase}</Status>
+                </DegreesAndStatus>
+            </DataContaier>
+        </MainContainer>
     )
 
 }
 
 export default FavFiveDayCard;
 
-{/* <MainContainer className={`${card.id == 5 ? "last" : ""} ${card.id % 2 !== 0 ? "evenBackground" : ""}`}>
+//TESTMODE
+
+/* <MainContainer className={`${card.id == 5 ? "last" : ""} ${card.id % 2 !== 0 ? "evenBackground" : ""}`}>
 <Header className={`${card.id == 5 ? "last" : ""} ${card.id % 2 !== 0 ? "even" : ""}`}>
     <HeaderText>BLBABLA</HeaderText>
 </Header>
@@ -209,4 +197,4 @@ export default FavFiveDayCard;
         <Status>Partly Cloudy</Status>
     </DegreesAndStatus>
 </DataContaier>
-</MainContainer> */}
+</MainContainer> */

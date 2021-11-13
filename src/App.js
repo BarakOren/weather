@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Header from "./components/header.component";
 import Homepage from './components/homepage.component';
 import Favorites from "./components/favoritesPage";
@@ -38,6 +38,20 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const [theme, setTheme] = useState(DarkTheme);
+
+  useEffect(() => {
+    var theme = window.localStorage.getItem('theme')
+    if(theme === "dark"){
+      setTheme(DarkTheme)
+    } else {
+      setTheme(LightTheme)
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme.id);
+  }, [theme]);
+
   return ( 
     <ThemeProvider theme={{...theme, setTheme: () => {
       setTheme(s => s.id === "light" ? DarkTheme : LightTheme)

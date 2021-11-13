@@ -91,6 +91,8 @@ const Button = styled.button`
 `
 const P = styled.p`
   font-size: 2vw;
+  cursor: pointer;
+  margin: 0;
   @media only screen and (max-width: 800px) {
     font-size: 5vw;
   }
@@ -135,27 +137,22 @@ const Search = () => {
         setSuggestions(matches)
       }
 
-      function handleNameClick(cityName){
-        // dispatch(setMainCity(cityName))
-        // dispatch(closeSearch())
+      const getResults = useCallback( async () => {
+        if(text.length > 0){
+        try{
+          const first = await fetch(`http://dataservice.accuweather.com//locations/v1/cities/autocomplete?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${text}&language=en-us HTTP/1.1`)
+          const fetchJson = await first.json()
+          setApiD(fetchJson)
+        } catch(error) {
+          console.log(error.message)
+        }
       }
-
-      // const getResults = useCallback( async () => {
-      //   if(text.length > 0){
-      //   try{
-      //     const first = await fetch(`http://dataservice.accuweather.com//locations/v1/cities/autocomplete?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${text}&language=en-us HTTP/1.1`)
-      //     const fetchJson = await first.json()
-      //     setApiD(fetchJson)
-      //   } catch(error) {
-      //     console.log(error.message)
-      //   }
-      // }
-      // }, [text])
+      }, [text])
 
    
-      // useEffect(() => {
-      //   getResults()
-      // },[text, getResults])
+      useEffect(() => {
+        getResults()
+      },[text, getResults])
 
       const favoriteList = useSelector(state => state.favorites.saved);
       const dispatch = useDispatch()
@@ -182,17 +179,12 @@ const Search = () => {
           toggler ? 
           <ResultContainer>
           {
-          test.slice(0, 4).map((city, index) => {
-            const key = city.key
+          suggestions.slice(0, 4).map((city, index) => {
+            const key = city.Key
             const name = city.LocalizedName
             const obj = {name: name, key: key}
             return <Result key={index}>
-            {/* <P
-            style={{cursor: "pointer", margin: "0"}}
-            >{city.LocalizedName}</P> */}
-             <P
-            style={{cursor: "pointer", margin: "0"}}
-            >{city}</P>
+            <P>{name}</P>
             <ButtonsContaier>
               <Button onClick={() => getWeather(obj)}>Get Weather</Button>
               {
@@ -211,7 +203,6 @@ const Search = () => {
           :
           ""
         }
-         
         </Container>
     )
 }

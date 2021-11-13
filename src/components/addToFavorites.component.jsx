@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const Container = styled.div`
 
     &.notInList{
-        color: ${p => p.theme.xColor};
+        color: ${p => p.theme.mainCard.textOne};
         border-radius: 10px;
         position: absolute;
         font-size: 1.1vw;

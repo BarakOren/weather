@@ -12,8 +12,6 @@ const initial_state = {
     saved: [{name: "Tel Aviv", key: 215854}]
 };
 
-// {name: "New York", key: 349727}, {name: "Tokyo", key: 226396}, 
-
 export default function favoritesReducer(state = initial_state, action){
     switch(action.type){
         case type.ADD_TO_FAVORITES:

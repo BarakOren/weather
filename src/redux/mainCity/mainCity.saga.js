@@ -4,11 +4,11 @@ import { searchForSelector } from "./mainCitySelectors";
 
 async function getApi(name){
     try{
-        const callByCity = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${name}&language=en-us HTTP/1.1`)
+        const callByCity = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=qLUBrhZri1R9pUezxPSGXRWdR3ZH22NS&q=${name}&language=en-us HTTP/1.1`)
         const callByCityJson = await callByCity.json()
-        const currentWeather = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${callByCityJson[0].Key}?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&language=en-us&details=true HTTP/1.1`)
+        const currentWeather = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${callByCityJson[0].Key}?apikey=qLUBrhZri1R9pUezxPSGXRWdR3ZH22NS&language=en-us&details=true HTTP/1.1`)
         const currentWeatherJson = await currentWeather.json()
-        const callFiveDays = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${callByCityJson[0].Key}?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&language=en-us&details=false&metric=true HTTP/1.1`)
+        const callFiveDays = await fetch(`http://dataservice.accuweather.com/forecasts/v1/daily/5day/${callByCityJson[0].Key}?apikey=qLUBrhZri1R9pUezxPSGXRWdR3ZH22NS&language=en-us&details=false&metric=true HTTP/1.1`)
         const fiveDaysJson = await callFiveDays.json()
         return [callByCityJson[0], currentWeatherJson[0], fiveDaysJson]
     } catch(error) {

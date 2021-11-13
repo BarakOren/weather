@@ -48,11 +48,12 @@ const DataContaier = styled.div`
     height: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: flex-start;
     position: relative;
+    position: relative;
     @media only screen and (max-width: 800px) {
-
+        justify-content: space-evenly;
     }
 `
 
@@ -119,51 +120,53 @@ const Status = styled.div`
 const FavMainCard = ({propsData, city}) => {
 
     const currentDegree = useSelector(state => state.degrees.degreeType)
-    // const data = propsData[0];
+    const data = propsData[0];
 
-    // const dateFunc = new Date(data.LocalObservationDateTime);
-    // const date = dateFunc.getDate()
-    // const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
-    // const month = ["January", "February", "March", "April", "May", "June",
-    // "July", "August", "September", "October", "November", "December"
-    // ][dateFunc.getMonth()].slice(0,3)
+    const dateFunc = new Date(data.LocalObservationDateTime);
+    const date = dateFunc.getDate()
+    const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
+    const month = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ][dateFunc.getMonth()].slice(0,3)
+
+
 
     return(
         <MainContainer>
             <Header>
-                <HeaderText>Mon</HeaderText>
-                <HeaderText>OCT</HeaderText>
+                <HeaderText>{dayName}</HeaderText>
+                <HeaderText>{date} {month}</HeaderText>
             </Header>
             <DataContaier>
-            <City>PALESTINE</City>
+            <City>{city.name}</City>
             <Degrees>
             {
-                currentDegree ? "43°C" : `54°F`
+                currentDegree ? `${Math.trunc(data.Temperature.Metric.Value)}°C` : `${Math.trunc(data.Temperature.Imperial.Value)}°F`
             }
-            <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
+            <Image src={images.find(image => image.id === data.WeatherIcon).url} />
             </Degrees>
-            <Status>CClotdy</Status>
-            </DataContaier>     
+            <Status>{data.WeatherText}</Status>
+            </DataContaier>
         </MainContainer>
     )
 }
 
 export default FavMainCard;
 
-{/* <MainContainer>
-<Header>
-    <HeaderText>Monday</HeaderText>
-    <HeaderText>6 oct</HeaderText>
-</Header>
-<DataContaier>
-<City>Tel Aviv</City>
-<Degrees>
-{
-    currentDegree ? "50°C" : "50°F"
-}
-<Image src={"https://developer.accuweather.com/sites/default/files/01-s.png"} />
-</Degrees>
-<Status>Partly Cloudy</Status>
-</DataContaier>
-
-</MainContainer> */}
+//TESTMODE
+    // <MainContainer>
+    //     <Header>
+    //         <HeaderText>Mon</HeaderText>
+    //         <HeaderText>OCT</HeaderText>
+    //     </Header>
+    //     <DataContaier>
+    //     <City>NEWYORK</City>
+    //     <Degrees>
+    //     {
+    //         currentDegree ? "43°C" : `54°F`
+    //     }
+    //     <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
+    //     </Degrees>
+    //     <Status>CClotdy</Status>
+    //     </DataContaier>     
+    // </MainContainer>

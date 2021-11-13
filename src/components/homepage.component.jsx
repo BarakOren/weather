@@ -33,9 +33,9 @@ const Homepage = () => {
 
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(setMainCity())
-    // }, [dispatch])
+    useEffect(() => {
+        dispatch(setMainCity())
+    }, [dispatch])
 
 
     return(

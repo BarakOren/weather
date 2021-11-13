@@ -4,7 +4,7 @@ const three = "#bfbfbf"
 const four = "#e6e6e6"
 const five = "#f2f2f2"
 const grey = "#a7a9b5"
-const mainBlue = "#006e99"
+const mainBlue = "#0092cc"
 const secondBlue = "#005b80"
 
 
@@ -21,15 +21,16 @@ const theme = {
     },
     search: {
         searchBackground: two,
-        buttonColor: secondBlue
+        buttonColor: mainBlue
     },
     mainCard: {
         background1: three,
         background2: two,
         headerBackground: two,
         headerBackground2: one,
-        textOne: "#1a1a1a",
-        degreeColor: "#1a1a1a"
+        headerBackgroundMobile: "#999999",
+        textOne: "#333333",
+        degreeColor: "black"
     },
     toggler: {
         text: four,
@@ -42,7 +43,7 @@ const theme = {
     spinnerColor: "black",
     xColor: "black",
     xBackground: one,
-    menuBackground: "linear-gradient(to bottom, #252837, #1f212d, #191b23, #131419, #0a0b0e)"
+    menuBackground: "linear-gradient(to right top, #8c8c8c, #979797, #a2a2a2, #adadad, #b8b8b8);"
 }
 
 export default theme;

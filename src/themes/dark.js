@@ -28,6 +28,7 @@ const theme = {
         background2: darkFour,
         headerBackground: darkTwo,
         headerBackground2: darkFive,
+        headerBackgroundMobile: darkOne,
         textOne: grey,
         degreeColor: "white"
     },

@@ -22,6 +22,7 @@ const Container = styled.div`
     
         @media only screen and (max-width: 800px) {
             margin-top: 2vh;
+            padding: 10px 5vw;
             font-size: 5vw;
         }
 `

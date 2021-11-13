@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import MenuIcon from '@material-ui/icons/Menu';
 import { grey } from '@material-ui/core/colors';
 import {Link} from "react-router-dom";
 import { useLocation } from "react-router";
-import styled from "styled-components";
+import styled, {ThemeContext} from "styled-components";
 import ThemeToggler from "./themeToggler.component";
 import DegreeToggler from "./degreeToggler.component";
 
@@ -71,8 +71,8 @@ const MenuItem = styled(Link)`
 const Menu = () => {
 
     const [menuToggle, setMenuToggle] = useState(false);
-
     const location = useLocation().pathname;
+    const {id} = useContext(ThemeContext);
 
     return(
         <>
@@ -80,8 +80,8 @@ const Menu = () => {
 
             <MenuContainer className={`menu ${menuToggle ? "" : "hidden"}`}>
                 <ItemContainer>
-                    <MenuItem style={{color: location === "/" ? "white" : "", borderColor: location === "/" ? "white" : ""}} to="/" onClick={() => setMenuToggle(false)}>Home</MenuItem>
-                    <MenuItem style={{color: location === "/favorites" ? "white" : "", borderColor: location === "/favorites" ? "white" : ""}} to="/favorites" onClick={() => setMenuToggle(false)} >Favorites</MenuItem>
+                    <MenuItem style={{color: location === "/" ? (id === "dark" ? "white" : "#333333") : (id === "dark" ? "#b3b3b3" : "#5e5e5e"), borderColor: location === "/" ? (id === "dark" ? "white" : "#333333") : (id === "dark" ? "#b3b3b3" : "#5e5e5e")}} to="/" onClick={() => setMenuToggle(false)}>Home</MenuItem>
+                    <MenuItem style={{color: location === "/favorites" ? (id === "dark" ? "white" : "#333333") : (id === "dark" ? "#b3b3b3" : "#5e5e5e"), borderColor: location === "/favorites" ? (id === "dark" ? "white" : "#333333") : (id === "dark" ? "#b3b3b3" : "#5e5e5e")}} to="/favorites" onClick={() => setMenuToggle(false)} >Favorites</MenuItem>
                     <ThemeToggler />
                     <DegreeToggler />
                 </ItemContainer>

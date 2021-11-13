@@ -51,11 +51,11 @@ const DataContaier = styled.div`
     height: 90%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: flex-start;
     position: relative;
     @media only screen and (max-width: 800px) {
-
+        justify-content: space-evenly;
     }
 `
 
@@ -68,7 +68,6 @@ const City = styled.div`
     font-size: 1.4vw;
     font-weight: 500;
     @media only screen and (max-width: 1000px) {
-
         font-size: 1.6vw;
     }
     @media only screen and (max-width: 800px) {
@@ -125,55 +124,58 @@ const MainCard = () => {
     const mainCity = useSelector(state => state.mainCity.mainCity)
     const currentWeather = useSelector(state => state.mainCity.currentWeather)
     
-    // const dateFunc = new Date(currentWeather.LocalObservationDateTime);
-    // const date = dateFunc.getDate()
-    // const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
-    // const month = ["January", "February", "March", "April", "May", "June",
-    // "July", "August", "September", "October", "November", "December"
-    // ][dateFunc.getMonth()].slice(0,3)
+    const dateFunc = new Date(currentWeather.LocalObservationDateTime);
+    const date = dateFunc.getDate()
+    const dayName = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][dateFunc.getDay()]
+    const month = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ][dateFunc.getMonth()].slice(0,3)
 
     const favoriteList = useSelector(state => state.favorites.saved)
 
     return(
+
         <MainContainer>
             <Header>
-                <HeaderText>Mon</HeaderText>
-                <HeaderText>{"25"} {"Nov"}</HeaderText>
+                <HeaderText>{dayName}</HeaderText>
+                <HeaderText>{date} {month}</HeaderText>
             </Header>
             <DataContaier>
-            <AddToFav keyNum={"123"} name={"bla"} />
-            <City>{"Barcelonas"}</City>
+            <AddToFav keyNum={mainCity.Key} name={mainCity.EnglishName} />
+
+            <City>{mainCity.EnglishName}</City>
             <Degrees>
             {
-                currentDegree ? `${"42"}°C` : `${"34"}°F`
+                currentDegree ? `${Math.trunc(currentWeather.Temperature.Metric.Value)}°C` : `${Math.trunc(currentWeather.Temperature.Imperial.Value)}°F`
             }
-            <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
+            <Image src={images.find(image => image.id === currentWeather.WeatherIcon).url} />
             </Degrees>
-            <Status>{"Clody"}</Status>
+            <Status>{currentWeather.WeatherText}</Status>
             </DataContaier>
         </MainContainer>
-        // <MainContainer>
-        //     <Header>
-        //         <HeaderText>{dayName}</HeaderText>
-        //         <HeaderText>{date} {month}</HeaderText>
-        //     </Header>
-        //     <DataContaier>
-            
-            
-        //     <AddToFav keyNum={mainCity.Key} name={mainCity.EnglishName} />
 
-        //     <City>{mainCity.EnglishName}</City>
-        //     <Degrees>
-        //     {
-        //         currentDegree ? `${currentWeather.Temperature.Metric.Value}°C` : `${currentWeather.Temperature.Imperial.Value}°F`
-        //     }
-        //     <Image src={images.find(image => image.id === currentWeather.WeatherIcon).url} />
-        //     </Degrees>
-        //     <Status>{currentWeather.WeatherText}</Status>
-        //     </DataContaier>
-        // </MainContainer>
     )
 
 }
 
 export default MainCard;
+
+// TEST MODE
+
+                // <MainContainer>
+        //     <Header>
+        //         <HeaderText>Mon</HeaderText>
+        //         <HeaderText>{"25"} {"Nov"}</HeaderText>
+        //     </Header>
+        //     <DataContaier>
+        //     <AddToFav keyNum={"123"} name={"bla"} />
+        //     <City>{"Barcelonas"}</City>
+        //     <Degrees>
+        //     {
+        //         currentDegree ? `${"42"}°C` : `${"34"}°F`
+        //     }
+        //     <Image src={"https://developer.accuweather.com/sites/default/files/05-s.png"} />
+        //     </Degrees>
+        //     <Status>{"Clody"}</Status>
+        //     </DataContaier>
+        // </MainContainer>

@@ -96,13 +96,7 @@ const test = [
         degree: "23*C",
         status: "parlty cloudy"
     },
-    {
-        id: "5",
-        date: "Wensdy",
-        name: "Tokyo",
-        degree: "23*C",
-        status: "parlty cloudy"
-    },
+
 ]
 
 
@@ -112,8 +106,8 @@ const FavFullCard = ({city}) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
-    const currentWeatherCall = `http://dataservice.accuweather.com/currentconditions/v1/${city.key}?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&language=en-us&details=true HTTP/1.1`
-    const fiveDaysCall = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.key}?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&language=en-us&details=false&metric=true HTTP/1.1`
+    const currentWeatherCall = `http://dataservice.accuweather.com/currentconditions/v1/${city.key}?apikey=qLUBrhZri1R9pUezxPSGXRWdR3ZH22NS&language=en-us&details=true HTTP/1.1`
+    const fiveDaysCall = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${city.key}?apikey=qLUBrhZri1R9pUezxPSGXRWdR3ZH22NS&language=en-us&details=false&metric=true HTTP/1.1`
 
     const getData = useCallback(async () => {
         try{
@@ -130,47 +124,46 @@ const FavFullCard = ({city}) => {
         }
     }, [currentWeatherCall, fiveDaysCall])
 
-    // useEffect(() => {
-    //     getData()
-    // }, [getData])
+    useEffect(() => {
+        getData()
+    }, [getData])
 
     const dispatch = useDispatch()
 
     return(
-        <WeatherCards>
-        <X>X</X>
-        <FavMainCard city={city} />
-        <FiveDaysContainer>
-        {
-            test.slice(0,5).map((data, index) => {
-                return <FavFiveDayCard index={index} key={index} data={data}/>
-                })
-        } 
-        </FiveDaysContainer>
-        
-        
+            <WeatherCards>
+                {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
+                {data && !loading &&
+                <>
+                <X onClick={() => dispatch(removeFromFavorites(city.name))}>X</X>
+                <FavMainCard city={city} propsData={data.currentWeather}/>
+                <FiveDaysContainer>
+                {
+                    data.fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
+                        return <FavFiveDayCard index={index} key={index} data={data}/>
+                        })
+                } 
+                </FiveDaysContainer>
+                </>
+                }
+                {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
 
-    </WeatherCards>
-            // <WeatherCards>
-            //     {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
-            //     {data && !loading &&
-            //     <>
-            //     <X onClick={() => dispatch(removeFromFavorites(city.name))}>X</X>
-            //     <FavMainCard city={city} propsData={data.currentWeather}/>
-            //     <FiveDaysContainer>
-            //     {
-            //         data.fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
-            //             return <FavFiveDayCard index={index} key={index} data={data}/>
-            //             })
-            //     } 
-            //     </FiveDaysContainer>
-            //     </>
-            //     }
-            //     {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
-
-            // </WeatherCards>
+            </WeatherCards>
     )
 
 }
 
 export default FavFullCard;
+
+//TESTMODE
+    //     <WeatherCards>
+    //     <X>X</X>
+    //     <FavMainCard city={city} />
+    //     <FiveDaysContainer>
+    //     {
+    //         test.slice(0,5).map((data, index) => {
+    //             return <FavFiveDayCard index={index} key={index} data={data}/>
+    //             })
+    //     } 
+    //     </FiveDaysContainer>
+    // </WeatherCards>

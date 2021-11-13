@@ -92,35 +92,34 @@ const FullCard = ({favorite}) => {
     const loading = useSelector(state => state.mainCity.loading)
     const error = useSelector(state => state.mainCity.error)
     const fiveDays = useSelector(state => state.mainCity.fiveDays)
-    const mainCityState = useSelector(state => state.mainCity)
 
-
-    
     return(
             <WeatherCards>
-                {/* {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
+                {loading && <SpinnerContainer><Spinner/></SpinnerContainer>}
                 {error && <SpinnerContainer><Error>{error}</Error></SpinnerContainer>}
                 
                 {fiveDays && !loading && !error &&
-                <> */}
+                <>
                 <MainCard />
                 <FiveDaysContainer>
                     {
-                    test.slice(1,5).map((data, index) => {
-                        return <FiveDayCard index={index} key={index} data={data}/>
-                        })
-                    } 
-                    {/* {
                     fiveDays.DailyForecasts.slice(1,5).map((data, index) => {
                         return <FiveDayCard index={index} key={index} data={data}/>
                         })
-                    }  */}
+                    } 
                 </FiveDaysContainer>
-                {/* </>
-                } */}
+                </>
+                } 
             </WeatherCards>
     )
 
 }
 
 export default FullCard;
+
+//TESTMODE
+/* {
+test.slice(1,5).map((data, index) => {
+    return <FiveDayCard index={index} key={index} data={data}/>
+    })
+}  */
