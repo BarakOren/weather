@@ -140,7 +140,7 @@ const Search = () => {
       const getResults = useCallback( async () => {
         if(text.length > 0){
         try{
-          const first = await fetch(`http://dataservice.accuweather.com//locations/v1/cities/autocomplete?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${text}&language=en-us HTTP/1.1`)
+          const first = await fetch(`https://dataservice.accuweather.com//locations/v1/cities/autocomplete?apikey=AZvK08ugMNLlAGAwDD9GQGj108Tm8OIP&q=${text}&language=en-us HTTP/1.1`)
           const fetchJson = await first.json()
           setApiD(fetchJson)
         } catch(error) {
